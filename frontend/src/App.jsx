@@ -15,14 +15,14 @@ function App() {
       <div className="print:hidden pointer-events-none absolute top-[20%] -right-[10%] w-[40%] h-[50%] rounded-full bg-fuchsia-600/10 blur-[120px] transition-all" />
       
       <header className="print:hidden relative z-10 border-b border-white/5 bg-slate-950/50 backdrop-blur-md">
-        <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-4">
+        <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-between gap-4 px-6 py-4 sm:flex-row sm:gap-0">
           <h1 className="flex items-center gap-3 text-xl font-bold tracking-tight text-white drop-shadow-md">
             <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-tr from-violet-600 to-fuchsia-500 shadow-lg shadow-violet-500/30">
               <span className="h-3 w-3 rounded-full bg-white opacity-80 mix-blend-overlay"></span>
             </span>
             Health Tracker
           </h1>
-          <nav className="flex gap-6 text-sm font-medium">
+          <nav className="flex flex-wrap justify-center gap-4 text-sm font-medium sm:justify-end md:gap-6">
             <Link className="text-slate-400 transition-colors hover:text-violet-400 hover:drop-shadow-[0_0_8px_rgba(167,139,250,0.5)]" to="/login">
               Login
             </Link>
