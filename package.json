@@ -1,0 +1,17 @@
+{
+  "name": "mnit-health-tracker",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev --workspace=frontend\" \"npm run dev --workspace=backend\"",
+    "build": "npm run build --workspace=frontend",
+    "render-build": "npm install && npm run build --workspace=frontend",
+    "start": "node backend/src/server.js"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
