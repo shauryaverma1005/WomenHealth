@@ -295,16 +295,16 @@ function DashboardPage() {
     }
   };
 
-  const handleHydrationSubmit = async (e) => {
-    e.preventDefault();
+  const handleHydrationSubmit = async (amount = 1) => {
+    if (waterIntake + amount < 0) return;
     try {
       const res = await fetch(`${API_BASE}/hydration/logs`, {
         method: "POST",
         headers: getAuthHeaders(),
-        body: JSON.stringify({ intake: 1, date: new Date().toISOString() })
+        body: JSON.stringify({ intake: amount, date: new Date().toISOString() })
       });
       if (res.ok) {
-        showMsg("Added 1 glass of water!");
+        showMsg(amount > 0 ? "Added 1 glass of water!" : "Removed 1 glass of water!");
         fetchData();
       }
     } catch (err) {
@@ -564,12 +564,19 @@ function DashboardPage() {
             </div>
 
             <div className="text-center pt-4">
-              <p className="text-sm text-slate-400 mb-6">Drink a glass of water, click below.</p>
-              <button onClick={handleHydrationSubmit} type="button" className="h-24 w-24 rounded-full bg-gradient-to-tr from-cyan-500 to-blue-500 mx-auto flex items-center justify-center text-white shadow-[0_0_30px_rgba(6,182,212,0.5)] backdrop-blur-md transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(6,182,212,0.7)] active:scale-95 group">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 opacity-80 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-                </svg>
-              </button>
+              <p className="text-sm text-slate-400 mb-6">Update your water intake.</p>
+              <div className="flex items-center justify-center gap-6">
+                <button onClick={() => handleHydrationSubmit(-1)} type="button" disabled={waterIntake <= 0} className="h-16 w-16 rounded-full bg-slate-800/80 border border-white/5 flex items-center justify-center text-slate-400 shadow-[0_0_15px_rgba(0,0,0,0.2)] backdrop-blur-md transition-all hover:bg-slate-700 hover:text-white active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-slate-800/80 disabled:hover:text-slate-400 group">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 transition-transform group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M20 12H4" />
+                  </svg>
+                </button>
+                <button onClick={() => handleHydrationSubmit(1)} type="button" className="h-24 w-24 rounded-full bg-gradient-to-tr from-cyan-500 to-blue-500 flex items-center justify-center text-white shadow-[0_0_30px_rgba(6,182,212,0.5)] backdrop-blur-md transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(6,182,212,0.7)] active:scale-95 group">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 opacity-80 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
         </Card>

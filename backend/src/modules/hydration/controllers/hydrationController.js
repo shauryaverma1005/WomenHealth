@@ -9,8 +9,8 @@ const addDailyIntake = asyncHandler(async (req, res) => {
     throw new ApiError(400, "intake is required");
   }
 
-  if (Number.isNaN(Number(intake)) || Number(intake) <= 0) {
-    throw new ApiError(400, "intake must be a positive number");
+  if (Number.isNaN(Number(intake)) || Number(intake) === 0) {
+    throw new ApiError(400, "intake must be a non-zero number");
   }
 
   const log = await hydrationService.addDailyIntake({
